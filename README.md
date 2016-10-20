@@ -11,9 +11,9 @@ Plot[Sin[t],{t,0,1}]
 
 
 ## インストール
-BezierCurveApproximation.mをダウンロードし, 適切なディレクトリに配置する.
+`BezierCurveApproximation.m`をダウンロードし, 適切なディレクトリに配置する.
 配置場所を知るには
-FileNameJoin[{$UserBaseDirectory, "Applications"}
+`FileNameJoin[{$UserBaseDirectory, "Applications"}]`
 をMathematica上で実行すれば良い.
 
 
@@ -27,9 +27,11 @@ FileNameJoin[{$UserBaseDirectory, "Applications"}
 
 全ての関数の引数はp, kである.
 オプションは存在しない.
+何れの関数もProtectedされており, 例えば`Clear[ShowLine]`などとすればエラーが発生する.
 
 
 ## 例
+このパッケージでの描画の例を次に示す:
 - 普通の関数
 - 微分不能
 - 不連続
@@ -38,11 +40,11 @@ FileNameJoin[{$UserBaseDirectory, "Applications"}
 
 
 ## 近似の理論
-https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnxoeXJvZGl1bXxneDphOThkMzBmYzBkZWQ0YjU
-にBezier曲線で近似するための理論を記述した.
+BezierCurveApproximation.pdfにBezier曲線で近似するための理論を記述した.
+
 
 ## 注意
-Pointを使う関数, つまりShowPoints, ShowKnotsでは点の位置が正確に配置されない.
+Pointを使う関数(つまりShowPointsとShowKnots)では点の位置が正確に配置されない.
 これはMathematicaのPointの仕様であって, このパッケージの問題ではない.
 正確さを要求するなら例えば
 
