@@ -2,8 +2,11 @@
 
 BeginPackage["BezierCurveApproximation`"]
 
-BezierControlPoints::usage = "Returns control points.";
+BezierControlPoints::usage = "Returns coordinates of control points.";
 ShowCurve::usage = "Returns approximated Bezier curve.";
+ShowLine::usage = "Returns line which connects control points.";
+ShowPoints::usage = "Returns control points.";
+ShowKnots::usage = "Returns knot of piecewise Bezier curve.";
 
 Begin["`Private`"]
 
@@ -33,18 +36,52 @@ BezierControlPoints[p_,knots_]:=Module[
 	]
 
 ShowCurve[p_,knots_]:=Module[
-		{pts},
+		{pts,grp},
 		pts=BezierControlPoints[p,knots];
+		grp=BezierCurve[pts];
 		Which[
-			Length[p[knots[[1]]]]==2,
-			Graphics[{BezierCurve[pts],Green,Line[pts],Red,Point[pts]}],
-			Length[p[knots[[1]]]]==3,
-			Graphics3D[{BezierCurve[pts],Green,Line[pts],Red,Point[pts]}]
+			Length[p[knots[[1]]]]==2, Graphics[{grp}],
+			Length[p[knots[[1]]]]==3, Graphics3D[{grp}]
 		]
 	]
 
+ShowLine[p_,knots_]:=Module[
+		{pts,grp},
+		pts=BezierControlPoints[p,knots];
+		grp=Line[pts];
+		Which[
+			Length[p[knots[[1]]]]==2, Graphics[{grp}],
+			Length[p[knots[[1]]]]==3, Graphics3D[{grp}]
+		]
+	]
+
+ShowPoints[p_,knots_]:=Module[
+		{pts,grp},
+		pts=BezierControlPoints[p,knots];
+		grp=Point[pts];
+		Which[
+			Length[p[knots[[1]]]]==2, Graphics[{grp}],
+			Length[p[knots[[1]]]]==3, Graphics3D[{grp}]
+		]
+	]
+
+ShowKnots[p_,knots_]:=Module[
+		{pts,grp},
+		pts=Map[p,Union[knots]];
+		grp=Point[pts];
+		Which[
+			Length[p[knots[[1]]]]==2, Graphics[{grp}],
+			Length[p[knots[[1]]]]==3, Graphics3D[{grp}]
+		]
+	]
+
+Protect[BezierControlPoints, ShowCurve, ShowLine, ShowPoints, ShowKnots]
+
 End[]
 EndPackage[]
+
+
+
 
 
 
