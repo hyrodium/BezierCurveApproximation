@@ -6,7 +6,7 @@ Mathematicaで描いたグラフ, 例えば
 Plot[Sin[t],{t,0,1}]
 をsvgやepsで出力したものを拡大すれば, 折れ線で近似されている事が分かる.
 
-このパッケージを使えば, 曲線をBezier曲線で近似し, ノード数を減らす事が可能となる.
+このパッケージを使えば, 曲線をBezier曲線で近似してノード数を減らす事が可能となる.
 
 
 
@@ -36,6 +36,10 @@ FileNameJoin[{$UserBaseDirectory, "Applications"}
 - 3次までの多項式曲線
 - 2変数関数
 
+
+## 近似の理論
+https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnxoeXJvZGl1bXxneDphOThkMzBmYzBkZWQ0YjU
+にBezier曲線で近似するための理論を記述した.
 
 ## 注意
 Pointを使う関数, つまりShowPoints, ShowKnotsでは点の位置が正確に配置されない.
