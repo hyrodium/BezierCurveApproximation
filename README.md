@@ -17,7 +17,7 @@ Plot[Sin[t],{t,0,1}]
 をMathematica上で実行すれば良い.
 
 配置が終わったら
-`Needs["BezierCurveApproximation``"]`
+``Needs["BezierCurveApproximation`"]``
 を実行すれば良い.
 
 ## 使い方
