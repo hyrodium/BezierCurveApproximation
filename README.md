@@ -22,12 +22,25 @@ FileNameJoin[{$UserBaseDirectory, "Applications"}
 - BezierControlPoints
 - ShowCurve
 - ShowLine
-- BezierControlPoints
+- ShowPoints
+- ShowKnotss
 
 全ての関数の引数はp, kである.
 オプションは存在しない.
 
+
 ## 例
+- 普通の関数
+- 微分不能
+- 不連続
+- 3次までの多項式曲線
+- 2変数関数
 
 
+## 注意
+Pointを使う関数, つまりShowPoints, ShowKnotsでは点の位置が正確に配置されない.
+これはMathematicaのPointの仕様であって, このパッケージの問題ではない.
+正確さを要求するなら例えば
+
+とすれば良いだろう.
 
