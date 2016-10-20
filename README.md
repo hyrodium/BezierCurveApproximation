@@ -16,6 +16,9 @@ Plot[Sin[t],{t,0,1}]
 `FileNameJoin[{$UserBaseDirectory, "Applications"}]`
 をMathematica上で実行すれば良い.
 
+配置が終わったら
+`Needs["BezierCurveApproximation``"]`
+を実行すれば良い.
 
 ## 使い方
 このパッケージで定義される関数は次の5つである:
