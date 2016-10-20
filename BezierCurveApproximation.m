@@ -3,15 +3,17 @@
 BeginPackage["BezierCurveApproximation`"]
 
 BezierControlPoints::usage = "Returns coordinates of control points.";
-ShowCurve::usage = "Shows approximated Bezier curve.";
-ShowLine::usage = "Shows line which connects control points.";
-ShowPoints::usage = "Shows control points.";
-ShowKnots::usage = "Shows knot of piecewise Bezier curve.";
+PlotBezier::usage = "Plot Bezier curve.";
+ParametricPlotBezier::usage = "Parametric Plot Bezier curve.";
+ShowCurve::usage = "Option for showing Bezier curve.";
+ShowLine::usage = "Option for showing polygonal line which connects control points.";
+ShowPoints::usage = "Option for showing control points.";
+ShowKnots::usage = "Option for showing knots of piecewise Bezier curve.";
 
 Begin["`Private`"]
 
 BezierControlPoints[p_,knots_]:=Module[
-		{knot,t0,t1,p0,p1,Dp0,Dp1,cos,k,pts},
+		{knot,t0,t1,p0,p1,Dp0,Dp1,cos,k,pts,i},
 		knot=Union[knots];
 		t1=knot[[1]];
 		p1=Limit[p[x],x->t1,Direction->-1];
@@ -35,47 +37,46 @@ BezierControlPoints[p_,knots_]:=Module[
 		pts
 	]
 
-ShowCurve[p_,knots_]:=Module[
-		{pts,grp},
-		pts=BezierControlPoints[p,knots];
-		grp=BezierCurve[pts];
-		Which[
-			Length[p[knots[[1]]]]==2, Graphics[{grp}],
-			Length[p[knots[[1]]]]==3, Graphics3D[{grp}]
-		]
+Options[PlotBezier]={ShowCurve->True,ShowLine->False,ShowPoints->False,ShowKnots->False}
+Options[ParametricPlotBezier]={ShowCurve->True,ShowLine->False,ShowPoints->False,ShowKnots->False}
+
+PlotBezier[f_,{t_,knots_},OptionsPattern[]]:=Module[
+		{fn,pts,grp,i},
+		fn[s_]:=Flatten[{f}]/.t->s;
+		grp={};
+		Do[
+			pts=BezierControlPoints[{#,fn[#][[i]]}&,knots];
+			If[OptionValue[ShowCurve],grp=Join[grp,{BezierCurve[pts]}];];
+			If[OptionValue[ShowLine],grp=Join[grp,{Line[pts]}];];
+			If[OptionValue[ShowPoints],grp=Join[grp,{Point[pts]}];];
+			If[OptionValue[ShowKnots],grp=Join[grp,{Point[Part[pts,Table[3i+1,{i,0,(Length[pts]-1)/3}]]]}];];,
+			{i,Length[Flatten[f]]}
+		];
+		Graphics[{grp}]
 	]
 
-ShowLine[p_,knots_]:=Module[
-		{pts,grp},
-		pts=BezierControlPoints[p,knots];
-		grp=Line[pts];
-		Which[
-			Length[p[knots[[1]]]]==2, Graphics[{grp}],
-			Length[p[knots[[1]]]]==3, Graphics3D[{grp}]
-		]
+ParametricPlotBezier[p_,{t_,knots_},OptionsPattern[]]:=Module[
+		{pn,pts,grp,i},
+		pn[s_]:=Partition[Flatten[{p}],2]/.t->s;
+		grp={};
+		Do[
+			pts=BezierControlPoints[{pn[#][[i]][[1]],pn[#][[i]][[2]]}&,knots];
+			If[OptionValue[ShowCurve],grp=Join[grp,{BezierCurve[pts]}];];
+			If[OptionValue[ShowLine],grp=Join[grp,{Line[pts]}];];
+			If[OptionValue[ShowPoints],grp=Join[grp,{Point[pts]}];];
+			If[OptionValue[ShowKnots],grp=Join[grp,{Point[Part[pts,Table[3i+1,{i,0,(Length[pts]-1)/3}]]]}];];,
+			{i,Length[pn[0]]}
+		];
+		Graphics[{grp}]
 	]
 
-ShowPoints[p_,knots_]:=Module[
-		{pts,grp},
-		pts=BezierControlPoints[p,knots];
-		grp=Point[pts];
-		Which[
-			Length[p[knots[[1]]]]==2, Graphics[{grp}],
-			Length[p[knots[[1]]]]==3, Graphics3D[{grp}]
-		]
-	]
-
-ShowKnots[p_,knots_]:=Module[
-		{pts,grp},
-		pts=Map[p,Union[knots]];
-		grp=Point[pts];
-		Which[
-			Length[p[knots[[1]]]]==2, Graphics[{grp}],
-			Length[p[knots[[1]]]]==3, Graphics3D[{grp}]
-		]
-	]
-
-Protect[BezierControlPoints, ShowCurve, ShowLine, ShowPoints, ShowKnots]
+(*Protect[BezierControlPoints, PlotBezier, ParametricPlotBezier, ShowCurve, ShowLine, ShowPoints, ShowKnots]*)
 
 End[]
 EndPackage[]
+
+
+
+
+
+
