@@ -41,7 +41,7 @@ Plot[Sin[t],{t,0,1}]
 - 不連続
 - 3次までの多項式曲線
 - 2変数関数
-
+- svg出力, ShowCurve, ShowLine...
 
 ## 近似の理論
 BezierCurveApproximation.pdfにBezier曲線で近似するための理論を記述した.
