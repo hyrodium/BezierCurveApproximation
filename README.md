@@ -20,7 +20,8 @@ Plot[Sin[t],{t,0,1}]
 ``Needs["BezierCurveApproximation`"]``
 を実行すれば良い.
 
-## 使い方
+
+## 関数
 このパッケージで定義される関数は次の5つである:
 - BezierControlPoints
 - ShowCurve
@@ -33,8 +34,8 @@ Plot[Sin[t],{t,0,1}]
 何れの関数もProtectedされており, 例えば`Clear[ShowLine]`などとすればエラーが発生する.
 
 
-## 例
-このパッケージでの描画の例を次に示す:
+## 使い方
+このパッケージの使い方の例を次に示す:
 - 普通の関数
 - 微分不能
 - 不連続
