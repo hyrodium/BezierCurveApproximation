@@ -50,7 +50,7 @@ PlotBezier[f_,{t_,knots_},OptionsPattern[]]:=Module[
 			If[OptionValue[ShowLine],grp=Join[grp,{Line[pts]}];];
 			If[OptionValue[ShowPoints],grp=Join[grp,{Point[pts]}];];
 			If[OptionValue[ShowKnots],grp=Join[grp,{Point[Part[pts,Table[3i+1,{i,0,(Length[pts]-1)/3}]]]}];];,
-			{i,Length[Flatten[f]]}
+			{i,Length[Flatten[{f}]]}
 		];
 		Graphics[{grp}]
 	]
@@ -74,6 +74,9 @@ ParametricPlotBezier[p_,{t_,knots_},OptionsPattern[]]:=Module[
 
 End[]
 EndPackage[]
+
+
+
 
 
 
