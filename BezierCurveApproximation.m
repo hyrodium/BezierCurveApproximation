@@ -21,11 +21,21 @@ LngLat::usage = "Option for setging longtitude and latitude.";
 
 Begin["`Private`"]
 
+Attributes[PlotBezier]={HoldAll};
+Attributes[Plot3DBezier]={HoldAll};
+Attributes[ParametricPlotBezier]={HoldAll};
+Attributes[ParametricPlot3DBezier]={HoldAll};
+
 Options[BezierDRAW]={ShowCurve->True,ShowLine->False,ShowPoints->False,ShowKnots->False}
 Options[PlotBezier]={BoundingBox->{}}
 Options[Plot3DBezier]={BoundingBox->{},Mesh->{10,10},LngLat->{\[Pi]/6,\[Pi]/6}}
 Options[ParametricPlotBezier]={BoundingBox->{},Mesh->{10,10}}
 Options[ParametricPlot3DBezier]={BoundingBox->{},Mesh->{10,10},LngLat->{\[Pi]/6,\[Pi]/6}}
+
+SyntaxInformation[PlotBezier]={"ArgumentsPattern"->{_,{_,_,_},OptionsPattern[]},"LocalVariables"->{"Plot",{2}}}
+SyntaxInformation[Plot3DBezier]={"ArgumentsPattern"->{_,{_,_,_},{_,_,_},OptionsPattern[]},"LocalVariables"->{"Plot",{2,3}}}
+SyntaxInformation[ParametricPlotBezier]={"ArgumentsPattern"->{{_,__},{_,_,_},Optional[{_,_,_}],OptionsPattern[]},"LocalVariables"->{"Plot",{2,3}}}
+SyntaxInformation[ParametricPlot3DBezier]={"ArgumentsPattern"->{___,OptionsPattern[]},"LocalVariables"->{"Plot",{2,3}}}
 
 proj[x_,Ln_,La_]:=({{0, 1, 0},{0, 0, 1}}).RotationMatrix[La,{0,1,0}].RotationMatrix[-Ln,{0,0,1}].x;
 
